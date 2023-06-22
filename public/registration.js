@@ -1,4 +1,7 @@
 const form = document.querySelector('form');
+const popup = document.getElementById('popup');
+const popupMessage = document.getElementById('popup-message');
+const closeBtn = document.getElementById('close');
 
 form.addEventListener('submit', event => {
   event.preventDefault();
@@ -9,12 +12,12 @@ form.addEventListener('submit', event => {
   const confirm_password = form.elements.confirm_password.value;
 
   if (!validatePassword(password)) {
-    alert('Password must be between 8 to 15 characters and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.');
+    showPopup('Password must be between 8 to 15 characters and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.');
     return;
   }
 
   if (password !== confirm_password) {
-    alert('Passwords do not match.');
+    showPopup('Passwords do not match.');
     return;
   }
 
@@ -26,7 +29,9 @@ form.addEventListener('submit', event => {
     body: JSON.stringify({ name, email, password })
   })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {
+    showPopup(data.message);
+  })
   .catch(error => console.error(error));
 });
 
@@ -34,3 +39,12 @@ function validatePassword(password) {
   const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
   return pattern.test(password);
 }
+
+function showPopup(message) {
+  popupMessage.textContent = message;
+  popup.style.display = 'block';
+}
+
+closeBtn.addEventListener('click', () => {
+  popup.style.display = 'none';
+});

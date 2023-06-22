@@ -38,33 +38,28 @@ app.post('/register', (req, res) => {
 
   db.get(sqlEmail, [email], (error, row) => {
     if (error) {
-      console.error('Error checking email in SQLite table: ', error);
       res.status(500).json({ message: 'Error checking email' });
       return;
     }
 
     if (row) {
-      console.error('Email already exists in SQLite table');
       res.status(400).json({ message: 'Email already exists' });
       return;
     }
 
     db.get(sqlName, [name], (error, row) => {
       if (error) {
-        console.error('Error checking name in SQLite table: ', error);
         res.status(500).json({ message: 'Error checking name' });
         return;
       }
 
       if (row) {
-        console.error('Name already exists in SQLite table');
         res.status(400).json({ message: 'Name already exists' });
         return;
       }
 
       bcrypt.hash(password, 10, (err, hash) => {
         if (err) {
-          console.error('Error hashing password: ', err);
           res.status(500).json({ message: 'Error hashing password' });
           return;
         }
@@ -72,10 +67,8 @@ app.post('/register', (req, res) => {
 
         db.run(sqlInsert, values, (error) => {
           if (error) {
-            console.error('Error inserting registration data into SQLite table: ', error);
             res.status(500).json({ message: 'Error inserting data' });
           } else {
-            console.log('Registration data inserted into SQLite table');
             res.json({ message: 'Registration successful!' });
           }
         });
