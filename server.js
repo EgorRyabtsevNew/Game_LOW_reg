@@ -25,6 +25,8 @@ const db = new sqlite3.Database('mydatabase.db', (err) => {
     }); 
 });
 
+app.use(express.static('public'));
+
 app.post('/register', (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
