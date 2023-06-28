@@ -28,7 +28,13 @@ form.addEventListener('submit', event => {
     },
     body: JSON.stringify({ name, email, password })
   })
-  .then(response => response.json())
+  .then(response => {
+    if (response.ok) {
+      window.location.href = '/main.html'; // Redirect to main.html after successful registration
+    } else {
+      return response.json();
+    }
+  })
   .then(data => {
     showPopup(data.message);
   })
