@@ -12,23 +12,13 @@ window.addEventListener("DOMContentLoaded", function() {
     const password = form.elements.password.value;
     const confirm_password = form.elements.confirm_password.value;
   
-    if (!validatePassword(password)) {
-      showPopup('Password must be between 8 to 15 characters and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.');
-      return;
-    }
-  
-    if (password !== confirm_password) {
-      showPopup('Passwords do not match.');
-      return;
-    }
-  
     try {
       const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, email, password, confirm_password })
       });
   
       if (response.ok) {
@@ -41,11 +31,6 @@ window.addEventListener("DOMContentLoaded", function() {
       console.error(error);
     }
   });  
-
-  function validatePassword(password) {
-    const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-    return pattern.test(password);
-  }
 
   function showPopup(message) {
     popupMessage.textContent = message;
