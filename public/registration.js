@@ -23,6 +23,8 @@ window.addEventListener("DOMContentLoaded", function() {
   
       if (response.ok) {
         window.location.href = '/main.html';
+        const username = form.elements.name.value;
+        localStorage.setItem('username', username);
       } else {
         const data = await response.json();
         showPopup(data.message);
