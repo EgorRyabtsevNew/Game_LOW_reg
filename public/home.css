@@ -1,30 +1,53 @@
 body {
-    background-color: #f7e8d8;
-    font-family: 'Old Standard TT', serif;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 50px;
-  }
-  
-  .title {
-    font-size: 36px;
-    color: #8c3c0e;
-    margin-bottom: 20px;
-  }
-  
-  .message {
-    font-size: 24px;
-    color: #8c3c0e;
-    margin-bottom: 40px;
-  }
-  
-  .banner {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-  }
-  
+  background-color: #f7e8d8;
+  font-family: 'Old Standard TT', serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 50px;
+}
+
+.medieval-nav {
+  background-color: #8c3c0e;
+  padding: 10px;
+  text-align: center;
+  margin-top: -50px;
+}
+
+.medieval-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.medieval-nav li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.medieval-nav a {
+  color: #f7e8d8;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.medieval-nav a:hover {
+  color: #ffffff;
+}
+
+.title {
+  font-size: 36px;
+  color: #8c3c0e;
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 24px;
+  color: #8c3c0e;
+  margin-bottom: 40px;
+}
