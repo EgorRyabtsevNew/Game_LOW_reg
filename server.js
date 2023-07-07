@@ -143,6 +143,41 @@ app.post('/register', async (req, res) => {
   }
 });
 
+app.post('/login', async (req, res) => {
+  const name = req.body.name;
+  const password = req.body.password;
+
+  const sqlQuery = `SELECT * FROM users WHERE name = ?`;
+
+  db.get(sqlQuery, [name], async (error, row) => {
+    if (error) {
+      res.status(400).json({ message: 'Error checking name' });
+      return;
+    }
+
+    if (!row) {
+      res.status(400).json({ message: 'Invalid name or password' });
+      return;
+    }
+
+    const hashedPassword = row.password;
+
+    try {
+      const passwordMatch = await bcrypt.compare(password, hashedPassword);
+
+      if (passwordMatch) {
+        res.status(200).json({ message: 'Login successful', username: name });
+      } else {
+        res.status(400).json({ message: 'Invalid name or password' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error comparing passwords' });
+    }
+  });
+});
+
+
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
